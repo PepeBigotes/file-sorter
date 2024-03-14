@@ -1,0 +1,27 @@
+# FILE SORTER DEFAULT CONFIG
+# https://github.com/PepeBigotes/file-sorter
+
+mode: 'move'
+ #  'move': Move (cut + paste) sorted files, deleting original ones
+ #  'copy': Copy (copy + paste) sorted files, keeping original ones
+
+
+directories:
+ # Common RegEx Examples:
+ #   something&       Ends with 'something'
+ #   \.type&          Ends with '.type'
+ #   ^something       Starts with 'something'
+ #   this|that        Is 'this' or 'that'
+ #   (?=this)(?=that) Is 'this' and 'that'
+ # More at: https://www.w3schools.com/python/python_regex.asp
+
+# directory-name: "matching RegEx string"
+  pdf-docs: \.docx$
+  texts: \.txt$
+  word-docs: \.docx$
+  py-scripts: \.py$
+
+# hidden: ^\.  # Hidden contents (starting with .)
+# other: ^.  # No matches (must be at the end, or else all the files will go here)
+
+  # Feel free to expand this and send pull requests at https://github.com/PepeBigotes/
