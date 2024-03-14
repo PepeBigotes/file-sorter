@@ -24,4 +24,4 @@ directories:
 # hidden: ^\.  # Hidden contents (starting with .)
 # other: ^.  # No matches (must be at the end, or else all the files will go here)
 
-  # Feel free to expand this and send pull requests at https://github.com/PepeBigotes/
+  # Feel free to expand this and send pull requests at https://github.com/PepeBigotes/file-sorter/pulls

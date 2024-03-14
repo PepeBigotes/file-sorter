@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
-# github.com/PepeBigotes/file-sorter
-#Created by PepeBigotes
+#     _____ __                           __           
+#    / __(_) /__        _________  _____/ /____  _____
+#   / /_/ / / _ \______/ ___/ __ \/ ___/ __/ _ \/ ___/
+#  / __/ / /  __/_____(__  ) /_/ / /  / /_/  __/ /    
+# /_/ /_/_/\___/     /____/\____/_/   \__/\___/_/     
+#                                                     
+# https://github.com/PepeBigotes/file-sorter
+
 
 def try_input(msg) -> str:
     try: x = input(msg)
@@ -71,7 +77,7 @@ if not (CONFIG['mode'] in ('move', 'copy')) or not (CONFIG['directories']):
 #print(f"[debug] Config loaded: {CONFIG['mode']}")
 
 
-# INVERT 'directories' DICT
+# PREPARE 'directories' DICT
 regexs = {}
 for i in CONFIG['directories']:
 	regexs[CONFIG['directories'][re.compile(i).pattern]] = re.compile(i).pattern
