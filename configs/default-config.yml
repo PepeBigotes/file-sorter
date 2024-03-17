@@ -1,9 +1,13 @@
 # FILE SORTER DEFAULT CONFIG
 # https://github.com/PepeBigotes/file-sorter
 
-mode: 'move'
- #  'move': Move (cut + paste) sorted files, deleting original ones
- #  'copy': Copy (copy + paste) sorted files, keeping original ones
+sort-mode: normal
+ # normal   Sort in directories based on matching RegEx
+ # artist   Sort song files (Artist - Song) in directories based on their artist
+
+transfer-mode: move
+ #  move  Move (cut + paste) sorted files, deleting original ones
+ #  copy  Copy (copy + paste) sorted files, keeping original ones
 
 
 directories:

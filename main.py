@@ -41,11 +41,10 @@ def new_dir(x):
     if not check_dir(x): os.makedirs(x)
 
 def transfer(x, y):  # CAUTION: OVERWRITES
-	mode = CONFIG['mode']
-	if mode == 'copy':
+	if TRANSFER_MODE == 'copy':
 		if check_dir(x): shutil.copytree(x, y)
 		else: shutil.copy2(x,y)
-	if mode == 'move': shutil.move(x, y)
+	if TRANSFER_MODE == 'move': shutil.move(x, y)
 
 
 # ARGPARSE
@@ -71,21 +70,54 @@ args = argp.parse_args()
 
 
 # YML CONFIG
+TRANSFER_MODES = ('move', 'copy')
+SORT_MODES = ('normal', 'artist')
+
 with open(args.config, 'r') as file: CONFIG = yaml.safe_load(file)
-if not (CONFIG['mode'] in ('move', 'copy')) or not (CONFIG['directories']):
-	print(f"[!] '{args.config}' is not a valid config"); exit(1)
-#print(f"[debug] Config loaded: {CONFIG['mode']}")
+#print(f"[debug] Config: {CONFIG}")
+invalid = False
+
+if not 'directories' in CONFIG:
+    invalid = True
+    print(f"[!] '{args.config}' lacks the required 'directories' dictionary")
+if not 'transfer-mode' in CONFIG:
+    invalid = True
+    print(f"[!] '{args.config}' lacks the required 'transfer-mode' variable")
+if not CONFIG['transfer-mode'] in TRANSFER_MODES:
+	invalid = True
+	print(f"[!] Invalid transfer-mode in '{args.config}'")
+	print(f" └─ Expected {TRANSFER_MODES} got {CONFIG['transfer-mode']}")
+if not CONFIG['sort-mode'] in SORT_MODES:
+	invalid = True
+	print(f"[!] Invalid sort-mode in '{args.config}'")
+	print(f" └─ Expected {SORT_MODES} got {CONFIG['sort-mode']}")
+if invalid: exit(1)
+
+SORT_MODE = CONFIG['transfer-mode']
+TRANSFER_MODE = CONFIG['transfer-mode']
 
 
-# PREPARE 'directories' DICT
-regexs = {}
-for i in CONFIG['directories']:
-	regexs[CONFIG['directories'][re.compile(i).pattern]] = re.compile(i).pattern
-#print(f"[debug] Regexs: {regexs}")
 
 # LIST OF SRC CONTENTS
 LISTDIR = os.listdir(args.src)
 #print(f"[debug] LISTDIR: {LISTDIR}")
+
+
+# PREPARE 'regexs' (config directories) DICT
+regexs = {}
+
+if SORT_MODE == 'artist':
+	SEP_CHAR = ' - '
+	for i in LISTDIR:
+		parts = i.split(SEP_CHAR)
+		if len(parts) < 2: continue
+		artist = parts[0]
+		if not artist in regexs: regexs[r"^" + re.escape(artist + SEP_CHAR)] = artist
+if SORT_MODE == 'normal':
+	for i in CONFIG['directories']:
+		regexs[CONFIG['directories'][re.compile(i).pattern]] = re.compile(i).pattern
+#print(f"[debug] Regexs: {regexs}")
+
 
 
 # MAIN SORT LOOP
