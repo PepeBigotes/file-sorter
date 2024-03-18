@@ -64,8 +64,13 @@ argp.add_argument('-d', '--dst',
     default='.',
 	help="Destination path where to put the sorted files",
     )
+argp.add_argument('--debug',
+    action="store_true",
+	help="Print additional debug messages",
+    )
 args = argp.parse_args()
-#print(f"[debug] Args: {args}")
+DEBUG = args.debug
+if DEBUG: print(f"[debug] Args: {args}")
 
 
 
@@ -74,7 +79,7 @@ TRANSFER_MODES = ('move', 'copy')
 SORT_MODES = ('normal', 'artist')
 
 with open(args.config, 'r') as file: CONFIG = yaml.safe_load(file)
-#print(f"[debug] Config: {CONFIG}")
+if DEBUG: print(f"[debug] Config: {CONFIG}")
 invalid = False
 
 if not 'directories' in CONFIG:
@@ -100,7 +105,7 @@ TRANSFER_MODE = CONFIG['transfer-mode']
 
 # LIST OF SRC CONTENTS
 LISTDIR = os.listdir(args.src)
-#print(f"[debug] LISTDIR: {LISTDIR}")
+if DEBUG: print(f"[debug] LISTDIR: {LISTDIR}")
 
 
 # PREPARE 'regexs' (config directories) DICT
@@ -116,7 +121,7 @@ if SORT_MODE == 'artist':
 if SORT_MODE == 'normal':
 	for i in CONFIG['directories']:
 		regexs[CONFIG['directories'][re.compile(i).pattern]] = re.compile(i).pattern
-#print(f"[debug] Regexs: {regexs}")
+if DEBUG: print(f"[debug] Regexs: {regexs}")
 
 
 
