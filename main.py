@@ -61,7 +61,7 @@ argp.add_argument('-s', '--src',
 	help="Source path with your messy files",
     )
 argp.add_argument('-d', '--dst',
-    default='.',
+    default=None,
 	help="Destination path where to put the sorted files",
     )
 argp.add_argument('--debug',
@@ -71,6 +71,8 @@ argp.add_argument('--debug',
 args = argp.parse_args()
 DEBUG = args.debug
 if DEBUG: print(f"[debug] Args: {args}")
+
+if not args.dst: args.dst = args.src
 
 
 
