@@ -100,7 +100,7 @@ if not CONFIG['sort-mode'] in SORT_MODES:
 	print(f" └─ Expected {SORT_MODES} got {CONFIG['sort-mode']}")
 if invalid: exit(1)
 
-SORT_MODE = CONFIG['transfer-mode']
+SORT_MODE = CONFIG['sort-mode']
 TRANSFER_MODE = CONFIG['transfer-mode']
 
 
