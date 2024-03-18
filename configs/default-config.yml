@@ -20,10 +20,59 @@ directories:
  # More at: https://www.w3schools.com/python/python_regex.asp
 
 # directory-name: "matching RegEx string"
-  pdf-docs: \.docx$
-  texts: \.txt$
-  word-docs: \.docx$
-  py-scripts: \.py$
+  # General Files
+  image-files: \.(jpg|jpeg|png)$
+  video-files: \.(mp4|avi|mov)$
+  audio-files: \.(mp3|m4a|wav)$
+  text-files: \.txt$
+  compressed-files: \.(zip|rar|tar)$
+  presentation-files: \.(pptx|key|odp)$
+  document-files: \.(docx|pdf|doc|odt|rtf)$
+  spreadsheet-files: \.(xlsx|csv|xls|ods|xlsm)$
+  executable-files: \.(exe|app)$
+  config-files: \.(conf|config|cfg)$
+  backup-files: \.(bak|backup)$
+  # Office Files
+  pdf-documents: \.pdf$
+  word-documents: \.(doc|docx)$
+  excel-sheets: \.(xls|xlsx)$
+  powerpoint-presentations: \.(ppt|pptx)$
+  csv-files: \.csv$
+  email-messages: \.eml$
+  calendar-events: \.ics$
+  contact-lists: \.vcf$
+  note-files: \.note$
+  # Coding Files
+  python-scripts: \.py$
+  java-files: \.java$
+  cpp-files: \.(cpp|cxx|cc)$
+  c-files: \.c$
+  cs-files: \.(cs|csx)$
+  javascript-files: \.js$
+  typescript-files: \.ts$
+  php-files: \.php$
+  ruby-files: \.rb$
+  perl-files: \.pl$
+  shell-scripts: \.(sh|bash)$
+  swift-files: \.swift$
+  sql-files: \.sql$
+  powershell-scripts: \.ps1$
+  lua-scripts: \.lua$
+  go-files: \.go$
+  rust-files: \.rs$
+  scala-files: \.scala$
+  kotlin-files: \.kt$
+  dart-files: \.dart$
+  r-scripts: \.r$
+  html-files: \.html$
+  css-files: \.css$
+  markdown-files: \.md$
+  yaml-files: \.(yaml|yml)$
+  json-files: \.json$
+  dockerfiles: Dockerfile$
+  batch-files: \.bat$
+  makefiles: Makefile$
+  perl-scripts: \.pl$
 
 # hidden: ^\.  # Hidden contents (starting with .)
 # other: ^.  # No matches (must be at the end, or else all the files will go here)
