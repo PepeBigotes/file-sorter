@@ -1,0 +1,53 @@
+# FILE SORTER ALPHABETICAL CONFIG
+# https://github.com/PepeBigotes/file-sorter
+
+sort-mode: normal
+ # normal   Sort in directories based on matching RegEx
+ # artist   Sort song files (Artist - Song) in directories based on their artist
+
+transfer-mode: copy
+ #  move  Move (cut + paste) sorted files, deleting original ones
+ #  copy  Copy (copy + paste) sorted files, keeping original ones
+
+
+directories:
+ # Common RegEx Examples:
+ #   something&       Ends with 'something'
+ #   \.type&          Ends with '.type'
+ #   ^something       Starts with 'something'
+ #   this|that        Is 'this' or 'that'
+ #   (?=this)(?=that) Is 'this' and 'that'
+ # More at: https://www.w3schools.com/python/python_regex.asp
+
+# directory-name: "matching RegEx string"
+  A: ^A|^a
+  B: ^B|^b
+  C: ^C|^c
+  D: ^D|^d
+  E: ^E|^e
+  F: ^F|^f
+  G: ^G|^g
+  H: ^H|^h
+  I: ^I|^i
+  J: ^J|^j
+  K: ^K|^k
+  L: ^L|^l
+  M: ^M|^m
+  N: ^N|^n
+  O: ^O|^o
+  P: ^P|^p
+  Q: ^Q|^q
+  R: ^R|^r
+  S: ^S|^s
+  T: ^T|^t
+  U: ^U|^u
+  V: ^V|^v
+  W: ^W|^w
+  X: ^X|^x
+  Y: ^Y|^y
+  Z: ^Z|^z
+
+  hidden: ^\.  # Hidden contents (starting with .)
+  other: ^.  # No matches (must be at the end, or else all the files will go here)
+
+  # Feel free to expand this and send pull requests at https://github.com/PepeBigotes/file-sorter/pulls
