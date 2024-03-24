@@ -41,6 +41,7 @@ def new_dir(x):
     if not check_dir(x): os.makedirs(x)
 
 ignore_permerrors = False
+ignores_count = 0
 def transfer(x, y):  # CAUTION: OVERWRITES
 	try:
 		if TRANSFER_MODE == 'copy':
@@ -56,6 +57,7 @@ def transfer(x, y):  # CAUTION: OVERWRITES
 				ans = str.upper(try_input("[I] Ignore, (R) Retry, (IA) Ignore All"))
 			if ans == 'R': transfer(x, y)
 			if ans == 'IA': ignore_permerrors = True
+		ignores_count += 1
 
 
 # ARGPARSE
@@ -142,7 +144,12 @@ if DEBUG: print(f"[debug] Regexs: {regexs}")
 print(f"[*] Sorting {args.src} -> {args.dst}")
 
 all_ans = None
-
+counts = {
+    'original': len(LISTDIR),
+	'moves': 0,
+	'skips': 0,
+	'overwrites': 0,
+}
 for i in LISTDIR:
 	for regex in regexs:
 
@@ -162,9 +169,27 @@ for i in LISTDIR:
 					if ans == 'OA': all_ans = 'O'; print("[*] Overwriting all existing files from now on..."); is_ow = True; pass
 				else: ans = all_ans  # Has 'All' option
 
-				if ans in ('', 'S'): print(f"[-] Skipping {src} ({dst} already exists)"); continue
-				if ans == 'O': is_ow = True; pass
+				if ans in ('', 'S'):
+					print(f"[-] Skipping {src} ({dst} already exists)")
+					counts['skips'] += 1
+					continue
+				if ans == 'O':
+					is_ow = True
+					counts['overwrites'] += 1
+					pass
 
 			transfer(src, dst)
+			counts['moves'] += 1
 			print(f"[+] {'(OW) ' if is_ow else ''}{src} -> {dst}")
 			break
+
+
+
+counts_str = [f"\nHad {counts['original']} unsorted files", ]
+if counts['moves'] > 0: counts_str.append(f"{counts['moves']} of which were sorted")
+else: counts_str.append("none of them were sorted")
+if counts['skips'] > 0: counts_str.append(f"{counts['skips']} were skipped")
+if counts['overwrites'] > 0: counts_str.append(f"{counts['overwrites']} were overwrites")
+if ignores_count > 0: f"{ignores_count} were ignored due to PermissionError"
+
+print(', '.join(counts_str))
