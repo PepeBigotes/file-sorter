@@ -40,11 +40,22 @@ def new_file(x):
 def new_dir(x):
     if not check_dir(x): os.makedirs(x)
 
+ignore_permerrors = False
 def transfer(x, y):  # CAUTION: OVERWRITES
-	if TRANSFER_MODE == 'copy':
-		if check_dir(x): shutil.copytree(x, y)
-		else: shutil.copy2(x,y)
-	if TRANSFER_MODE == 'move': shutil.move(x, y)
+	try:
+		if TRANSFER_MODE == 'copy':
+			if check_dir(x): shutil.copytree(x, y)
+			else: shutil.copy2(x,y)
+		if TRANSFER_MODE == 'move': shutil.move(x, y)
+	except PermissionError:
+		print(f"[!] PermissionError for {x} -> {y}")
+		global ignore_permerrors
+		if not ignore_permerrors:
+			ans = None
+			while not ans in ('', 'I', 'R', 'IA'):
+				ans = str.upper(try_input("[I] Ignore, (R) Retry, (IA) Ignore All"))
+			if ans == 'R': transfer(x, y)
+			if ans == 'IA': ignore_permerrors = True
 
 
 # ARGPARSE
